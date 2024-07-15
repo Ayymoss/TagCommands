@@ -7,16 +7,34 @@ public class TagConfiguration
         new TagCommand
         {
             Tag = "VIP",
-            Command = "map",
-            Alias = "m",
-            TargetPlayerRequired = false
+            Commands =
+            [
+                new TagCommandContext
+                {
+                    Command = "map",
+                    Alias = "m",
+                    TargetPlayerRequired = false
+                },
+                new TagCommandContext
+                {
+                    Command = "say",
+                    Alias = "s",
+                    TargetPlayerRequired = false
+                }
+            ]
         },
         new TagCommand
         {
             Tag = "PayToWin",
-            Command = "kick",
-            Alias = "k",
-            TargetPlayerRequired = true
+            Commands =
+            [
+                new TagCommandContext
+                {
+                    Command = "kick",
+                    Alias = "k",
+                    TargetPlayerRequired = true
+                }
+            ]
         }
     ];
 

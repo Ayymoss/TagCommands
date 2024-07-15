@@ -43,10 +43,10 @@ public class TagCommand : Command
         var parsedCommand = fullArgs.First();
         var arguments = fullArgs.Skip(1).ToArray();
 
-        var userCommands = _tagConfig.TagCommands.Where(x => x.Tag.Equals(gameEvent.Origin.Tag, StringComparison.CurrentCultureIgnoreCase));
-        var tagCommand = userCommands.FirstOrDefault(x => x.Command.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase));
-        tagCommand ??= _tagConfig.TagCommands
-            .FirstOrDefault(x => x.Alias.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase));
+        var tagCommands = _tagConfig.TagCommands.Where(x => x.Tag.Equals(gameEvent.Origin.Tag, StringComparison.CurrentCultureIgnoreCase));
+        var tagCommand = tagCommands.SelectMany(x => x.Commands)
+            .FirstOrDefault(x => x.Command.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase)
+                                 || x.Alias.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase));
 
         if (string.IsNullOrWhiteSpace(tagCommand?.Command))
         {
