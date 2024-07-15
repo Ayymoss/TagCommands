@@ -8,14 +8,14 @@ public class TagConfiguration
         {
             Tag = "VIP",
             Command = "map",
-            Aliases = ["m"],
+            Alias = "m",
             TargetPlayerRequired = false
         },
         new TagCommand
         {
             Tag = "PayToWin",
             Command = "kick",
-            Aliases = ["k"],
+            Alias = "k",
             TargetPlayerRequired = true
         }
     ];

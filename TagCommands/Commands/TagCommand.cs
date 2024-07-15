@@ -18,7 +18,7 @@ public class TagCommand : Command
         _remoteCommandService = remoteCommandService;
         _tagConfig = tagConfig;
         Name = "tagcommand";
-        Description = tagConfig.Translations.CommandDescription ;
+        Description = tagConfig.Translations.CommandDescription;
         Alias = "tc";
         Permission = EFClient.Permission.User;
         RequiresTarget = false;
@@ -46,7 +46,7 @@ public class TagCommand : Command
         var userCommands = _tagConfig.TagCommands.Where(x => x.Tag.Equals(gameEvent.Origin.Tag, StringComparison.CurrentCultureIgnoreCase));
         var tagCommand = userCommands.FirstOrDefault(x => x.Command.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase));
         tagCommand ??= _tagConfig.TagCommands
-            .FirstOrDefault(x => x.Aliases.Contains(parsedCommand, StringComparer.CurrentCultureIgnoreCase));
+            .FirstOrDefault(x => x.Alias.Equals(parsedCommand, StringComparison.CurrentCultureIgnoreCase));
 
         if (string.IsNullOrWhiteSpace(tagCommand?.Command))
         {
@@ -57,7 +57,7 @@ public class TagCommand : Command
         int? targetId = null;
         if (tagCommand.TargetPlayerRequired)
         {
-            var player = arguments.First();
+            var player = arguments.FirstOrDefault();
             var target = gameEvent.Owner.GetClientByName(player).FirstOrDefault();
             if (target is null)
             {
